@@ -5,9 +5,6 @@ public class Piece {
 	//Protected: somente classes e subclasses do mesmo pacote vão poder acessar o atributo
 	protected Position position;
 	private Board board;
-	
-	public Piece() {
-	}
 
 	public Piece(Board board) {
 		this.board = board;
