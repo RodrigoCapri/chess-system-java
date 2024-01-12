@@ -36,4 +36,10 @@ public class Board {
 		return this.pieces[ position.getRow() ][ position.getColumn() ];
 	}
 	
+	//Adiciona uma peça ao tabuleiro
+	public void placePiece(Piece piece, Position position) {
+		this.pieces[position.getRow()][position.getColumn()] = piece;
+		piece.position = position; //Atribui estado não nulo ao position da piece
+	}
+	
 }
