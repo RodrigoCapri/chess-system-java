@@ -29,8 +29,8 @@ public class ChessMacth {
 	//Colocando as peças no tabuleiro
 	private void initialSetup() {
 		board.placePiece(new Rook(board, Color.WHITE), new Position(2, 1)); //Adiciona a torre
-		board.placePiece(new King(board, Color.BLACK), new Position(0, 4)); //Adiciona o Rei
-		board.placePiece(new King(board, Color.WHITE), new Position(0, 4)); //Adiciona o Rei
+		board.placePiece(new King(board, Color.BLACK), new Position(0, 3)); //Adiciona o Rei
+		board.placePiece(new King(board, Color.WHITE), new Position(7, 3)); //Adiciona o Rei
 	}
 	
 }
