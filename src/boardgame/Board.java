@@ -27,7 +27,7 @@ public class Board {
 	//Retorna a peça que está na matriz pela linha e coluna
 	public Piece piece(int row, int column) {
 		if( !this.positionExists(row, column) )
-			throw new BoardException("Position não existe no tabuleiro");
+			throw new BoardException("Position nao existe no tabuleiro");
 		
 		return this.pieces[row][column];
 	}
@@ -35,7 +35,7 @@ public class Board {
 	//Retorna a peça que está na matriz pelo objeto Position
 	public Piece piece(Position position) {
 		if( !this.positionExists(position) )
-			throw new BoardException("Position não existe no tabuleiro");
+			throw new BoardException("Position nao existe no tabuleiro");
 		
 		return this.pieces[ position.getRow() ][ position.getColumn() ];
 	}
@@ -43,7 +43,7 @@ public class Board {
 	//Adiciona uma peça ao tabuleiro em uma determinada posição
 	public void placePiece(Piece piece, Position position) {
 		if( this.thereIsAPiece(position) )
-			throw new BoardException("Já existe uma peça na posição informada! "+position);
+			throw new BoardException("Ja existe uma peca na posicao informada! "+position);
 		this.pieces[position.getRow()][position.getColumn()] = piece;
 		piece.position = position; //Atribui estado não nulo ao position da piece
 	}
@@ -51,7 +51,7 @@ public class Board {
 	//Remove uma peça do tabuleiro
 	public Piece removePiece(Position position) {
 		if( !this.positionExists(position) )
-			throw new BoardException("Esta posição não está no tabuleiro!");
+			throw new BoardException("Esta posição nao esta no tabuleiro!");
 		
 		if( this.piece(position) == null)
 			return null;
@@ -76,7 +76,7 @@ public class Board {
 	//Verifica se existe uma peça na posição
 	public boolean thereIsAPiece(Position position) {
 		if( !this.positionExists(position) )
-			throw new BoardException("Position não existe no tabuleiro");
+			throw new BoardException("Position nao existe no tabuleiro");
 		
 		return this.piece(position) != null; //Se for diferente de null, então existe uma peça na posição
 	}

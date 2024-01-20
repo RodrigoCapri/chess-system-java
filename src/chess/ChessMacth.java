@@ -48,7 +48,7 @@ public class ChessMacth {
 	//Verifica se há uma peça na posição
 	private void validateSourcePosition(Position position) {
 		if( !board.thereIsAPiece(position) ) {
-			throw new ChessException("Não existe peça nesta posição de origem!");
+			throw new ChessException("Nao existe peca nesta posicao de origem!");
 		}
 	}
 
