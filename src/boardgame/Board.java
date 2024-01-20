@@ -48,6 +48,21 @@ public class Board {
 		piece.position = position; //Atribui estado não nulo ao position da piece
 	}
 	
+	//Remove uma peça do tabuleiro
+	public Piece removePiece(Position position) {
+		if( !this.positionExists(position) )
+			throw new BoardException("Esta posição não está no tabuleiro!");
+		
+		if( this.piece(position) == null)
+			return null;
+		
+		Piece aux = this.piece(position);
+		aux.position = null;
+		this.pieces[position.getRow()][position.getColumn()] = null;
+		
+		return aux;
+	}
+	
 	//Função que verifica se uma posição existe por linha e coluna
 	private boolean positionExists(int row, int column) {
 		return (row >= 0 && row < this.rows) && (column >= 0 && column < this.columns);
