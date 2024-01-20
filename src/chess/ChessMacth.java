@@ -30,6 +30,7 @@ public class ChessMacth {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
 		validateSourcePosition(source); //Verifica se há uma peça na posição inicial
+		validateTargerPosition(source, target);
 		
 		Piece capturedPiece = makeMove(source, target); //Captura uma peça se houver no movimento ja com a posição de matriz
 		
@@ -43,6 +44,13 @@ public class ChessMacth {
 		board.placePiece(p, target); //Coloca a peça tirada da posição de origem e coloca na posição de destino
 		
 		return capturedPiece;
+	}
+	
+	//Verifica se a posição de destino é um movimento possivel da peça de sua posição de origem
+	private void validateTargerPosition(Position source, Position target) {
+		if( !board.piece(source).possibleMove(target) ) { //Se não for um movimento possível, lança uma exceção
+			throw new ChessException("Movimento invalido para esta peca!");
+		}
 	}
 
 	//Verifica se há uma peça na posição, e se há movimento possivel
