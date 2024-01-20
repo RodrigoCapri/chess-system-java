@@ -45,10 +45,13 @@ public class ChessMacth {
 		return capturedPiece;
 	}
 
-	//Verifica se há uma peça na posição
+	//Verifica se há uma peça na posição, e se há movimento possivel
 	private void validateSourcePosition(Position position) {
 		if( !board.thereIsAPiece(position) ) {
 			throw new ChessException("Nao existe peca nesta posicao de origem!");
+		}
+		if( !board.piece(position).isThereAnyPossibleMove() ) { //Se não existe algum movimento possivel?
+			throw new ChessException("Nao existe movimentos possiveis para a peca escolhida!");
 		}
 	}
 
