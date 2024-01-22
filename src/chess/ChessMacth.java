@@ -9,10 +9,24 @@ import chess.pieces.Rook;
 public class ChessMacth {
 
 	private Board board;
+	private int turn;
+	private Color currentPlayer;
 
 	public ChessMacth() {
 		this.board = new Board(8, 8);
+		
+		this.turn = 1;
+		this.currentPlayer = Color.WHITE;
+		
 		this.initialSetup();
+	}
+	
+	public int getTurn() {
+		return this.turn;
+	}
+	
+	public Color getCurrentPlayer() {
+		return this.currentPlayer;
 	}
 
 	// Retorna a matriz de peças da partida de xadrez
@@ -26,12 +40,14 @@ public class ChessMacth {
 		return mat;
 	}
 	
+	//Retorna os movimentos possiveis de uma peça
 	public boolean[][] possibleMoves(ChessPosition sourcePosition){
 		Position position = sourcePosition.toPosition();
 		validateSourcePosition(position);
 		return board.piece(position).possibleMoves();
 	}
 	
+	//Função para mover uma peça no tabuleiro
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
@@ -40,9 +56,12 @@ public class ChessMacth {
 		
 		Piece capturedPiece = makeMove(source, target); //Captura uma peça se houver no movimento ja com a posição de matriz
 		
+		this.nextTurn(); //Troca o turno
+		
 		return (ChessPiece) capturedPiece;
 	}
 
+	//Função auxiliar para executar o movimento da uma peça no tabuleiro
 	private Piece makeMove(Position source, Position target) {
 		Piece p = board.removePiece(source); //Retira a peça na posição de origem
 		Piece capturedPiece = board.removePiece(target); //Remove a possível peça que esteja na posiçao de destino
@@ -64,9 +83,18 @@ public class ChessMacth {
 		if( !board.thereIsAPiece(position) ) {
 			throw new ChessException("Nao existe peca nesta posicao de origem!");
 		}
+		if( this.currentPlayer != ( (ChessPiece) board.piece(position) ).getColor() ) {
+			throw new ChessException("Nao pode mover a peca adversaria!");
+		}
 		if( !board.piece(position).isThereAnyPossibleMove() ) { //Se não existe algum movimento possivel?
 			throw new ChessException("Nao existe movimentos possiveis para a peca escolhida!");
 		}
+	}
+	
+	//Avança o turno
+	private void nextTurn() {
+		this.turn++;
+		this.currentPlayer = (this.currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE ;
 	}
 
 	private void placeNewPiece(char column, int row, ChessPiece piece) {

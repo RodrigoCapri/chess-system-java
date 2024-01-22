@@ -3,6 +3,7 @@ package application;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import chess.ChessMacth;
 import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
@@ -48,6 +49,14 @@ public class UI {
 			throw new InputMismatchException("Erro lendo posição de xadrez!\n Valores válidos a1 a h8!"); // Erro entrada de dados
 		}
 	}
+	
+	//Imprime a partida de xadrez
+	public static void printMatch(ChessMacth chessMatch) {
+		printBoard(chessMatch.getPieces()); //Imprime o tabuleiro
+		System.out.println();
+		System.out.println("Turn: "+chessMatch.getTurn());
+		System.out.println("Vez do jogador: "+chessMatch.getCurrentPlayer());
+	}
 
 	//Imprime o tabuleiro
 	public static void printBoard(ChessPiece[][] pieces) {
@@ -88,6 +97,6 @@ public class UI {
 			}
 		}
 		System.out.print(" ");
-	}
+	} 
 
 }

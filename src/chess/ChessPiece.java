@@ -4,6 +4,8 @@ import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
 
+//ChessPiece também é uma Piece
+//Classe que estende a classe Piece
 public abstract class ChessPiece extends Piece{
 	
 	private Color color;

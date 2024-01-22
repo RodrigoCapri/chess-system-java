@@ -19,7 +19,7 @@ public class Program {
 		while (true) {
 			try {
 				UI.clearScreen();
-				UI.printBoard(chessMatch.getPieces());
+				UI.printMatch(chessMatch);
 
 				System.out.println();
 
@@ -38,6 +38,7 @@ public class Program {
 				ChessPosition target = UI.readCheesPosition(sc);
 				System.out.println();
 
+				@SuppressWarnings("unused")
 				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
 
 			} catch (ChessException | InputMismatchException e) {
