@@ -49,7 +49,7 @@ public class UI {
 
 			return new ChessPosition(column, row);
 		} catch (RuntimeException e) {
-			throw new InputMismatchException("Erro lendo posição de xadrez!\n Valores válidos a1 a h8!"); // Erro entrada de dados
+			throw new InputMismatchException("Erro lendo posicao de xadrez!\n Valores validos a1 a h8!"); // Erro entrada de dados
 		}
 	}
 	
