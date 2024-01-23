@@ -103,8 +103,11 @@ public class ChessMacth {
 
 	// Função auxiliar para executar o movimento da uma peça no tabuleiro
 	private Piece makeMove(Position source, Position target) {
-		Piece p = board.removePiece(source); // Retira a peça na posição de origem
+		ChessPiece p = (ChessPiece) board.removePiece(source); // Retira a peça na posição de origem
 
+		//Acrescenta um movimento na peça
+		p.increaseMoveCount();
+		
 		// Remove a possível peça que esteja na posiçao de destino
 		// Guarda a possivel peça na variavel para controle de peças capturadas
 		Piece capturedPiece = board.removePiece(target);
@@ -121,7 +124,11 @@ public class ChessMacth {
 
 	// Desfaz o movimento
 	private void undoMove(Position source, Position target, Piece capturedPiece) {
-		Piece p = board.removePiece(target); // Tira a peça que foi colocado no destino
+		ChessPiece p = (ChessPiece) board.removePiece(target); // Tira a peça que foi colocado no destino
+		
+		//Decrementa um movimento na peça
+		p.decreaseMoveCount();
+		
 		board.placePiece(p, source); // Devolve a peça a posição de origem
 
 		// Se houve uma peça capturada no movimento,
