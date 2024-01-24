@@ -20,7 +20,7 @@ public class Pawn extends ChessPiece{
 
 		Position p = new Position(0, 0);
 		
-		if( this.getColor() == Color.WHITE ) {
+		if( this.getColor() == Color.WHITE ) { 
 			//Define uma posição para cima
 			p.setValues(this.position.getRow() - 1 , this.position.getColumn());
 			//Verifica se a peça pode ir para esta posição
