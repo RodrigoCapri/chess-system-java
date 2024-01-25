@@ -95,9 +95,9 @@ public class ChessMacth {
 
 		// Verifica se a jogada executada deixou o oponente em checkmate
 		if (this.testCheckMate(this.opponent(currentPlayer))) {
-			
+
 			this.checkMate = true;
-			
+
 		} else {
 			this.nextTurn(); // Troca o turno
 		}
@@ -109,9 +109,9 @@ public class ChessMacth {
 	private Piece makeMove(Position source, Position target) {
 		ChessPiece p = (ChessPiece) board.removePiece(source); // Retira a peça na posição de origem
 
-		//Acrescenta um movimento na peça
+		// Acrescenta um movimento na peça
 		p.increaseMoveCount();
-		
+
 		// Remove a possível peça que esteja na posiçao de destino
 		// Guarda a possivel peça na variavel para controle de peças capturadas
 		Piece capturedPiece = board.removePiece(target);
@@ -123,16 +123,36 @@ public class ChessMacth {
 			this.capturedPieces.add(capturedPiece);
 		}
 
+		// Movimento especial Rock pequeno
+		if ((p instanceof King) && (target.getColumn() == (source.getColumn() + 2))) {
+			// O rei ando duas casas para direita, temos um Rock pequeno
+			Position sourceT = new Position(source.getRow(), source.getColumn() + 3);
+			Position targetT = new Position(source.getRow(), source.getColumn() + 1);
+			ChessPiece rook = (ChessPiece) this.board.removePiece(sourceT);
+			this.board.placePiece(rook, targetT);
+			rook.increaseMoveCount();
+		}
+
+		// Movimento especial Rock grande
+		if ((p instanceof King) && (target.getColumn() == (source.getColumn() - 2))) {
+			// O rei ando duas casas para esquerda, temos um Rock grande
+			Position sourceT = new Position(source.getRow(), source.getColumn() - 4);
+			Position targetT = new Position(source.getRow(), source.getColumn() - 1);
+			ChessPiece rook = (ChessPiece) this.board.removePiece(sourceT);
+			this.board.placePiece(rook, targetT);
+			rook.increaseMoveCount();
+		}
+
 		return capturedPiece;
 	}
 
 	// Desfaz o movimento
 	private void undoMove(Position source, Position target, Piece capturedPiece) {
 		ChessPiece p = (ChessPiece) board.removePiece(target); // Tira a peça que foi colocado no destino
-		
-		//Decrementa um movimento na peça
+
+		// Decrementa um movimento na peça
 		p.decreaseMoveCount();
-		
+
 		board.placePiece(p, source); // Devolve a peça a posição de origem
 
 		// Se houve uma peça capturada no movimento,
@@ -144,6 +164,27 @@ public class ChessMacth {
 			this.capturedPieces.remove(capturedPiece);
 			this.piecesOnTheBoard.add(capturedPiece);
 		}
+
+		// Movimento especial Rock pequeno
+		if ((p instanceof King) && (target.getColumn() == (source.getColumn() + 2))) {
+			// O rei ando duas casas para direita, temos um Rock pequeno
+			Position sourceT = new Position(source.getRow(), source.getColumn() + 3);
+			Position targetT = new Position(source.getRow(), source.getColumn() + 1);
+			ChessPiece rook = (ChessPiece) this.board.removePiece(targetT);
+			this.board.placePiece(rook, sourceT);
+			rook.decreaseMoveCount();;
+		}
+
+		// Movimento especial Rock grande
+		if ((p instanceof King) && (target.getColumn() == (source.getColumn() - 2))) {
+			// O rei ando duas casas para esquerda, temos um Rock grande
+			Position sourceT = new Position(source.getRow(), source.getColumn() - 4);
+			Position targetT = new Position(source.getRow(), source.getColumn() - 1);
+			ChessPiece rook = (ChessPiece) this.board.removePiece(targetT);
+			this.board.placePiece(rook, sourceT);
+			rook.decreaseMoveCount();
+		}
+
 	}
 
 	// Verifica se a posição de destino é um movimento possivel da peça de sua
@@ -270,7 +311,7 @@ public class ChessMacth {
 		this.placeNewPiece('b', 1, new Knight(board, Color.WHITE));
 		this.placeNewPiece('c', 1, new Bishop(board, Color.WHITE));
 		this.placeNewPiece('d', 1, new Queen(board, Color.WHITE));
-		this.placeNewPiece('e', 1, new King(board, Color.WHITE));
+		this.placeNewPiece('e', 1, new King(board, Color.WHITE, this));
 		this.placeNewPiece('f', 1, new Bishop(board, Color.WHITE));
 		this.placeNewPiece('g', 1, new Knight(board, Color.WHITE));
 		this.placeNewPiece('h', 1, new Rook(board, Color.WHITE));
@@ -287,7 +328,7 @@ public class ChessMacth {
 		this.placeNewPiece('b', 8, new Knight(board, Color.BLACK));
 		this.placeNewPiece('c', 8, new Bishop(board, Color.BLACK));
 		this.placeNewPiece('d', 8, new Queen(board, Color.BLACK));
-		this.placeNewPiece('e', 8, new King(board, Color.BLACK));
+		this.placeNewPiece('e', 8, new King(board, Color.BLACK, this));
 		this.placeNewPiece('f', 8, new Bishop(board, Color.BLACK));
 		this.placeNewPiece('g', 8, new Knight(board, Color.BLACK));
 		this.placeNewPiece('h', 8, new Rook(board, Color.BLACK));
